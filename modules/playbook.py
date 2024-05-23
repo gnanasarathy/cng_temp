@@ -144,6 +144,7 @@ task = st.selectbox(
 form_input = st.text_input("Enter the context")
 submit = st.button("Generate")
 
+
 if submit:
     st.write(get_LLM_response(form_input, task))
     

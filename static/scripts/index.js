@@ -15,4 +15,8 @@ function redirectPage(page) {
         {
             window.location.href = "/holder";            
         }
+    else if(page == 'board')
+        {
+            window.location.href = "/board";            
+        }
 }
