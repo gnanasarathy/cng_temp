@@ -1,0 +1,5 @@
+.env
+/sales_env
+/faiss_index
+/vectorstore
+/backup

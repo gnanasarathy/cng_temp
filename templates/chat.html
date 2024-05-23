@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Wizard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    body {
+
+display: flex;
+justify-content: center;
+align-items: center;
+height: calc(100vh - 60px);
+margin: 0;
+padding: 0;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background-color: #f4f4f4;
+margin: 0;
+padding: 0;
+color: #333;
+}
+
+.container {
+margin-top: 0;
+width: 90%;
+max-width: 500px;
+margin: 10px auto 0;
+background-color: #fff;
+border-radius: 12px;
+box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+padding: 20px;
+transition: all 0.3s;
+}
+
+.chat {
+overflow-y: auto;
+height: 400px;
+margin-bottom: 20px;
+border-bottom: 2px solid #e2e2e2;
+}
+
+.message {
+display: flex;
+margin-bottom: 12px;
+}
+
+.message.user {
+justify-content: flex-end;
+}
+
+.message-bubble {
+padding: 12px 18px;
+max-width: 70%;
+border-radius: 20px;
+line-height: 1.6;
+font-size: 0.95rem;
+}
+
+.message.user .message-bubble {
+background-color: #3182ce;
+color: white;
+}
+
+.message.bot .message-bubble {
+background-color: #e2e2e2;
+color: #333;
+}
+
+input[type="text"] {
+width: calc(100% - 110px);
+padding: 12px 18px;
+border: 2px solid #e2e2e2;
+border-radius: 8px 0 0 8px;
+font-size: 1rem;
+outline: none;
+}
+
+.send-button {
+width: 110px;
+background-color: #3182ce;
+color: white;
+padding: 12px 18px;
+border: none;
+border-radius: 0 8px 8px 0;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+
+.send-button:hover {
+background-color: #2c5282;
+}
+
+.footer {
+text-align: center;
+padding: 15px 0;
+font-size: 0.9rem;
+color: #666;
+position: static;
+border-top: 1px solid #e2e2e2;
+background-color: #fff;
+position: fixed;
+bottom: 0;
+width: 100%;
+}
+
+@keyframes fadeIn {
+from {
+    opacity: 0;
+}
+
+to {
+    opacity: 1;
+}
+}
+
+.fadeIn {
+animation: fadeIn 1s;
+}
+
+@media (max-width: 600px) {
+.container {
+    width: 95%;
+    margin: 10px auto 0;
+}
+
+.chat {
+    height: 300px;
+}
+
+input[type="text"],
+.send-button {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+}
+
+.footer {
+    font-size: 0.8rem;
+    margin-top: 30px;
+}
+}
+
+.typing-indicator {
+display: none;
+align-items: center;
+justify-content: flex-end;
+margin-top: 8px;
+width: 10px;
+height: 10px;
+background-color: #333;
+border-radius: 50%;
+margin-left: 4px;
+animation: typing 1s infinite;
+}
+
+@keyframes typing {
+
+0%,
+100% {
+    transform: scale(1);
+    opacity: 1;
+}
+
+50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+}
+}
+  </style>
+</head>
+
+<body>
+  <div class="container bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold mb-4 text-center">Sales Wizard</h1>
+    <div class="chat" id="chatContainer">
+    </div>
+    <div class="flex">
+      <input type="text" id="userInput" placeholder="Type your message here..." class="outline-none"
+        onkeyup="handleKeyPress(event)">
+      <button class="send-button" onclick="sendMessage()">Send</button>
+    </div>
+    <div class="typing-indicator" id="typingIndicator">
+    </div>
+  </div>
+
+  <script>
+    const promptInput = document.getElementById("userInput");
+const chatContainer = document.getElementById("chatContainer");
+const typingIndicator = document.getElementById("typingIndicator");
+
+async function sendMessage() {
+  const prompt = promptInput.value.trim();
+  if (!prompt) {
+    alert("Please enter a message.");
+    return;
+  }
+
+  addMessage(prompt, 'user');
+  promptInput.value = "";
+
+  showTypingIndicator();
+
+  const generatedText = await generateText(prompt);
+  addMessage(generatedText, 'bot');
+  hideTypingIndicator(); 
+}
+
+async function generateText(prompt) {
+  try {
+    const response = await fetch("http://127.0.0.1:5000/ask-sales-queries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query: prompt }),
+    });
+    console.log(response)
+    if (!response.ok) {
+      console.error("Error:", response.statusText);
+      return "Error occurred while generating response.";
+    }
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let isFinished = false;
+    let generatedTextContent = "";
+
+    while (!isFinished) {
+      const { done, value } = await reader.read();
+      if (done) {
+        isFinished = true;
+        break;
+      }
+      generatedTextContent += decoder.decode(value, {stream: true});
+    }
+    return JSON.parse(generatedTextContent)['response'];
+  } catch (error) {
+    console.error("Error:", error);
+    return "An error occurred.";
+  }
+}
+
+function addMessage(text, type) {
+  const messageDiv = document.createElement("div");
+  messageDiv.className = `message ${type}`;
+  messageDiv.innerHTML = `<div class="message-bubble fadeIn">${text}</div>`;
+  chatContainer.appendChild(messageDiv);
+
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  hideTypingIndicator();
+}
+
+let typingTimeout;
+
+function showTypingIndicator() {
+  clearTimeout(typingTimeout);
+  typingIndicator.style.display = "inline-block";
+}
+
+function hideTypingIndicator() {
+  typingTimeout = setTimeout(() => {
+      typingIndicator.style.display = "none";
+  }, 1000);
+}
+
+function handleKeyPress(event) {
+  if (event.key === "Enter") {
+      sendMessage();
+  }
+}
+
+window.onload = () => addMessage("I am your sales wizard ! For any queries related to your customer sales data, feel free to reach me. Here to help you with questions ", 'bot');
+  </script>
+</body>
+
+</html>

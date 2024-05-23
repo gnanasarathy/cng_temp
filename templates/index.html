@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <link rel="stylesheet" href= "{{ url_for('static',filename='styles/index.css') }}"/>
+    <!-- src="{{ url_for('static',filename='scripts/index.js') }}" -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My test page</title>
+    <script type="text/javascript" src="{{ url_for('static',filename='scripts/index.js') }}"defer></script>
+  </head>
+  <body>
+    <div class="overlay">
+    <div class="heading-container">
+        <div class="title">Sales Wizard</div>
+        <div class="description">Meet our wizard to discuss about the sales!</div>
+      <div class="logo"><img src="../static/assets/logo.jpg"></div>
+    </div>
+    <main class="page-content">
+        <div class="card">
+            <div class="content">
+                <h2 class="title">Wizard</h2>
+                <p class="copy">Meet our wizard to discuss about the sales!</p><button class="btn" onclick="redirectPage('chat')">Let's Chat</button></div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <h2 class="title">Get the Quote</h2>
+                <p class="copy">Quote for the client</p><button class="btn" onclick="redirectPage('quote')">Mail it</button></div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <h2 class="title">See Analytics</h2>
+                <p class="copy">To the the performance of sales</p><button class="btn" onclick="redirectPage('analytics')">TO BI</button></div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <h2 class="title">Holder</h2>
+                <p class="copy">Description</p><button class="btn" onclick="redirectPage('holder')">click here</button></div>
+        </div>
+    </main>
+  </div>
+  </body>
+</html>

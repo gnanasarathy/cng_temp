@@ -1,0 +1,43 @@
+﻿,,,,,Sales Team,Split %,,,,
+Customer:,Ethan Allen,,,CE 1:,Scott Douglas,0%,,,,
+Opportunity:,,,,CE 2:,,0%,,,,
+Approval #,,,,Specialist 1:,,0%,,,,
+,,,,Specialist 2:,,0%,,,,
+,,,,,,0%,,,,
+Hardware and Software Product Section,,,,,,,,,,
+Machine/Model,Description,Qty,Unit List Price,Total List Price,End User Discount,Customer Price,Sirius Discount,Sirius Cost,Profit,Margin
+7063-CR2,CBU,1,"10,206.00","$10,206",21.73%,"$7,988",25.12%,"$7,642 ",$346 ,4.33%
+7316-TF5,Both,2,"3,000.00","$6,000",34.78%,"$3,913",37.60%,"$3,744 ",$169 ,4.32%
+5773-RS3,Both,2,"1,215.00","$2,430",20.00%,"$1,944",25.12%,"$1,820 ",$124 ,6.40%
+9105-42A,"with Expert Care, CBU",1,"3,09,445.45","$3,09,445",33.95%,"$2,04,389",41.61%,"$1,80,685 ","$23,704 ",11.60%
+7965-S42,CBU,1,"12,959.00","$12,959",22.83%,"$10,000",26.16%,"$9,569 ",$432 ,4.32%
+VS PP SW,CBU,1,"27,990.00","$27,990",48.00%,"$14,555",54.03%,"$12,867 ","$1,688 ",11.60%
+Shipping,both,2,"6,080.00","$12,160",0.00%,"$12,160",0.00%,"$12,160 ",$0 ,0.00%
+7063-CR2,Production,1,"10,166.00","$10,166",21.73%,"$7,957",25.12%,"$7,612 ",$345 ,4.33%
+9105-42A,"with Expert Care, PROD",1,"5,53,311.40","$5,53,311",33.95%,"$3,65,462",41.61%,"$3,23,079 ","$42,384 ",11.60%
+7695-S42,Production,1,"11,359.00","$11,359",22.83%,"$8,766",26.16%,"$8,387 ",$378 ,4.32%
+VS PP SW,Production,1,"1,67,650.00","$1,67,650",48.00%,"$87,178",54.03%,"$77,069 ","$10,109 ",11.60%
+6662-M10,,1,$695.00,$695,,$695,,$695 ,$0 ,0.00%
+6668-T08,,1,$800.00,$800,,$800,,$800 ,$0 ,0.00%
+,,,,$0,,$0,,$0 ,$0 ,#DIV/0!
+Hardware & Software Total:,,,,"$11,25,172",,"$7,25,807",,"$6,46,129 ","$79,678 ",10.98%
+,,,,,,,,,,
+,,,,,,,,,,
+"Maintenance, Services & Incentives Sections Section",,,,,,,,,,
+Machine/Model,Description,Qyt,Unit/Sirius Ref. Price,Total List/Ref. Price,End User Discount,Customer Price,Sirius Discount,Sirius Cost,Profit,Margin
+Sirius Services,Implementation,1.00,,$0,0.00%,$0,30.00%,$0 ,$0 ,#DIV/0!
+Maintenance,,1.00,,$0,0.00%,$0,,,$0 ,#DIV/0!
+,,,,$0,,$0,,$0 ,$0 ,#DIV/0!
+,,,,$0,,$0,,$0 ,$0 ,#DIV/0!
+Promotions,,,,$0,,$0,,$0 ,$0 ,#DIV/0!
+,,,,$0,,$0,,$0 ,$0 ,#DIV/0!
+,,,,$0,,$0,,$0 ,$0 ,#DIV/0!
+,,,,$0,,$0,,$0 ,$0 ,#DIV/0!
+"Main., Services & Incentives Total:",,,,$0,,$0,,$0 ,$0 ,#DIV/0!
+,,,,,,,,,,
+Solution Total:,,,,"$11,25,172",,"$7,25,807",,"$6,46,129","$79,678",10.98%
+,,,,,,,,,,
+,,,,Purchase Authorization Price:,,,,,,
+,,,,Balance:,,"-$7,25,807",,,,
+,,,,,,,,,,
+,,,,,,,,,,

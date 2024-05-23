@@ -1,0 +1,11 @@
+streamlit
+google-generativeai
+python-dotenv
+pathlib
+langchain
+tabulate
+langchain_google_genai
+chromadb
+langchain
+openai
+langchain_experimental
