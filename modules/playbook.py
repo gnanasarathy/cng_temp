@@ -7,6 +7,11 @@ from langchain.prompts.example_selector import LengthBasedExampleSelector
 from dotenv import load_dotenv
 import os
 
+"""
+playbook.py : This file helps the sales person for tasks such answering sales question , craft persuasive pitch, product description
+, and sales play
+"""
+
 load_dotenv()
 
 def get_LLM_response(query,task):

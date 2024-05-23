@@ -52,4 +52,3 @@ def send_email(recipient_email: str, subject: str, body: str, file_path: str = N
         print(f"Error occurred while sending email: {ex}")
 
 
-send_email('ganasarathy309@gmail.com', 'Test Email', 'Test file with attachment')

@@ -6,27 +6,8 @@ import google.generativeai as genai
 from PIL import Image
 from fpdf import FPDF
 import time
-
-class CreatePDF():
-    def __init__(self, font, size) -> None:
-        self.pdf = FPDF()
-        self.pdf.add_page()
-        self.pdf.set_font(font, size = size)
-
-    def add_heading(self, text, align_center = True):
-        if align_center:
-            self.pdf.cell(200, 10, txt = text, ln = True,  align = 'C')
-        else:
-            self.pdf.cell(200, 10, txt = text, ln = True)
-
-    def add_text(self, text, align_center = False):
-        if align_center:
-            self.pdf.multi_cell(0, 10, text, align = 'C')
-        else:
-            self.pdf.multi_cell(0, 10, text)
-
-    def save_pdf(self, file_name):
-        self.pdf.output(file_name)
+from utils.emailUtil import send_email
+from utils.savePDF import CreatePDF
 
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 def get_model_response(input_prompt, query, user_image):
@@ -40,9 +21,10 @@ def get_model_response(input_prompt, query, user_image):
 st.set_page_config(page_title="Quote generation")
 st.header("Sales playbook - Quote Generation")
 
+
 user_input=st.text_input("Description for quote details",key="user_input")
 uploaded_file = st.file_uploader("Upload quote sample ...", type=["jpg", "jpeg", "png"])
-
+email_input=st.text_input("Email the quote to :",key="email_input")
 
 image=""
 if uploaded_file is not None:
@@ -62,3 +44,6 @@ if submit:
     c.add_text(model_response)
     c.save_pdf("Quote.pdf")
     st.toast('Your quote is generated !', icon='🎉')
+    if '@' in email_input: 
+        send_email(email_input, 'You got a quote', 'Hey , checkout this quote !!', 'Quote.pdf') 
+ 

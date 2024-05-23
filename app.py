@@ -18,6 +18,10 @@ from langchain.llms import OpenAI
 from database import db
 import cards
 
+# This script sets up a Flask web application that utilizes PyPDF2 for extracting text from PDF documents,
+# LangChain for text processing and question-answering, FAISS for vector storage, and 
+# Google Generative AI for embeddings and conversational AI.
+# Import necessary libraries and modules
 app = Flask(__name__)
 cors = CORS(app)
 
@@ -35,6 +39,7 @@ os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 openai.api_key=os.environ['OPENAI_API_KEY']
 
+# Function to extract text from a list of PDF documents
 def get_pdf_text(pdf_docs):
     text=""
     for pdf in pdf_docs:
@@ -43,18 +48,20 @@ def get_pdf_text(pdf_docs):
             text+= page.extract_text()
     return  text
 
+# Function to split extracted text into chunks for processing
 def get_text_chunks(text):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=1000)
     chunks = text_splitter.split_text(text)
     return chunks
 
+# Function to create and save a vector store from text chunks using Google Generative AI embeddings
 def get_vector_store(text_chunks):
     embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
 
+# Function to set up a conversational chain for question-answering using a custom prompt template
 def get_conversational_chain():
-
     prompt_template = """
     Answer the question as detailed as possible from the provided context, make sure to provide all the details, if the answer is not in
     provided context, give something relevant, don't provide the wrong answer\n\n
@@ -68,6 +75,7 @@ def get_conversational_chain():
     chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
     return chain
 
+# Function to handle user input, perform similarity search, and return the response from the conversational chain
 def user_input(user_question):
     embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
     new_db = FAISS.load_local("faiss_index", embeddings)
@@ -98,10 +106,6 @@ def analytics():
 @app.route("/holder", methods=["GET", "POST"])
 def holder():
     return render_template('playbook.html')
-
-# @app.route("/track-sales", methods=["GET", "POST"])
-# def track_sales():
-#     return render_template('board.html')
 
 @app.route('/ask-sales-queries', methods=['POST'])
 def ask_sales_questions():
@@ -141,15 +145,11 @@ def get_columns():
 @app.route('/card', methods=['POST'])
 def create_card():
     """Create a new card"""
-
-    # TODO: validation
     cards.create_card(
         text=request.form.get('text'),
         column=request.form.get('column', app.config.get('kanban.columns')[0]),
         color=request.form.get('color', None),
     )
-
-    # TODO: handle errors
     return 'Success'
 
 @app.route('/card/reorder', methods=["POST"])
@@ -180,8 +180,6 @@ def update_card(card_id):
     """Update an existing card, the JSON payload may be partial"""
     if not request.is_json:
         abort(400)
-
-    # TODO: handle errors
     cards.update_card(card_id, request.get_json(), app.config.get('kanban.columns'))
 
     return 'Success'
@@ -189,8 +187,6 @@ def update_card(card_id):
 @app.route('/card/<int:card_id>', methods=['DELETE'])
 def delete_card(card_id):
     """Delete a card by ID"""
-
-    # TODO: handle errors
     cards.delete_card(card_id)
     return 'Success'
 
