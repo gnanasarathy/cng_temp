@@ -7,26 +7,28 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vi
 * non volutpat tortor nisi non orci.
 """
 
-class CreatePDF():
+
+class CreatePDF:
     def __init__(self, font, size) -> None:
         self.pdf = FPDF()
         self.pdf.add_page()
-        self.pdf.set_font(font, size = size)
+        self.pdf.set_font(font, size=size)
 
-    def add_heading(self, text, align_center = True):
+    def add_heading(self, text, align_center=True):
         if align_center:
-            self.pdf.cell(200, 10, txt = text, ln = True,  align = 'C')
+            self.pdf.cell(200, 10, txt=text, ln=True, align="C")
         else:
-            self.pdf.cell(200, 10, txt = text, ln = True)
+            self.pdf.cell(200, 10, txt=text, ln=True)
 
-    def add_text(self, text, align_center = False):
+    def add_text(self, text, align_center=False):
         if align_center:
-            self.pdf.multi_cell(0, 10, text, align = 'C')
+            self.pdf.multi_cell(0, 10, text, align="C")
         else:
             self.pdf.multi_cell(0, 10, text)
 
     def save_pdf(self, file_name):
         self.pdf.output(file_name)
+
 
 c = CreatePDF("Arial", 12)
 c.add_heading("PDF created using Python")
