@@ -44,7 +44,7 @@ def get_pdf_text(pdf_docs):
     return  text
 
 def get_text_chunks(text):
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=1000) 
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=1000)
     chunks = text_splitter.split_text(text)
     return chunks
 
@@ -69,7 +69,7 @@ def get_conversational_chain():
     return chain
 
 def user_input(user_question):
-    embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001") 
+    embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
     new_db = FAISS.load_local("faiss_index", embeddings)
     docs = new_db.similarity_search(user_question)
     chain = get_conversational_chain()
@@ -109,8 +109,8 @@ def ask_sales_questions():
         data = request.get_json()
         user_question = data['query']
         sales_df = pd.read_excel('src_data/Bundled Deals Examples.xlsx')
-        agent = create_pandas_dataframe_agent(OpenAI(temperature=0), 
-                                            sales_df, 
+        agent = create_pandas_dataframe_agent(OpenAI(temperature=0),
+                                            sales_df,
                                             verbose=True)
         openai = OpenAI(temperature=0.0)
         response = agent(user_question)['output']

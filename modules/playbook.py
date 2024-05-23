@@ -54,15 +54,15 @@ def get_LLM_response(query,task):
                 "answer": "**Unleash your productivity with the blazing-fast Nova X laptop.** Edit videos seamlessly, render complex 3D models in record time, and power through demanding applications. Designed for professionals who demand the best, Nova X features cutting-edge technology and a sleek, durable build. Experience the difference a high-performance laptop can make in your workflow. Let's find the perfect configuration for your needs."
             },
             {
-                "query": "Product: Wireless noise-canceling headphones",                
+                "query": "Product: Wireless noise-canceling headphones",
                 "answer": "**Immerse yourself in crystal-clear audio with the Aria Pro wireless headphones.** Experience superior noise cancellation that blocks out distractions, letting you focus on what matters. Enjoy rich, detailed sound and exceptional comfort, perfect for work, travel, or simply unwinding.  Aria Pro headphones elevate your listening experience. Let's discover the perfect sound for you."
             },
         ]
     elif task == "Create your sales play":
-        examples = [ 
+        examples = [
              {
                  "query":"What are the action-steps for reps to take during sales cycle stages",
-                 "answer": """Here's a B2B example: 
+                 "answer": """Here's a B2B example:
 Stage 1: Outbound/Inbound prospecting → Play: Send 15 LinkedIn connections a day. Make X amount of cold calls in X amount of hours.
 Stage 2: Qualifying → Play: Ask prospects these specific questions. If they're qualified, set a time to speak 2 days later, if they're not qualified, send them these helpful resources.
 Stage 3: Presentation → Play: Demo the service, show these testimonials, ask clarifying questions, ask for the sale at the end
@@ -94,32 +94,32 @@ Stage 6: Onboarding → Play: Send onboarding documents after kick-off call, Mak
             """
             }
         ]
-    
+
 
     example_template = """
     Question: {query}
     Response: {answer}
     """
-    
+
     example_prompt = PromptTemplate(
         input_variables=['query','answer'],
         template = example_template
     )
-    
+
     prefix = """You are assigned with a {template_task}:
     Here are some examples:
     """
-    
+
     suffix = """
     Question: {template_user_input}
     Response: """
-    
+
     example_selector = LengthBasedExampleSelector(
         examples = examples,
         example_prompt= example_prompt,
         max_length = 200
     )
-    
+
     new_prompt_template = FewShotPromptTemplate(
         example_selector = example_selector,
         example_prompt = example_prompt,
@@ -128,9 +128,9 @@ Stage 6: Onboarding → Play: Send onboarding documents after kick-off call, Mak
         input_variables=['template_user_input','template_task'],
         example_separator="\n"
     )
-    
+
     response=llm(new_prompt_template.format(template_user_input=query,template_task=task))
-    
+
     return response
 
 st.set_page_config(page_title="Sales Wizard",
@@ -147,4 +147,3 @@ submit = st.button("Generate")
 
 if submit:
     st.write(get_LLM_response(form_input, task))
-    

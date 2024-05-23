@@ -88,7 +88,7 @@ width: 10%;
     flex-wrap: wrap; /* Allows child elements to wrap to the next line */
     gap: 20px;
 }
-	
+
 
  .page-content {
 	 display: flex;
@@ -180,7 +180,7 @@ width: 10%;
 	 transition: transform calc(var(--d) * 2) var(--e);
 }
  .card:nth-child(1):before {
-	background-image: url('https://cdn-icons-png.flaticon.com/512/477/477103.png'); 
+	background-image: url('https://cdn-icons-png.flaticon.com/512/477/477103.png');
 	opacity: 2px;
 	width: 50%;
     height: 50%;
@@ -309,4 +309,3 @@ width: 10%;
 		 transition-duration: 0s;
 	}
 }
- 

@@ -5,18 +5,18 @@ function redirectPage(page) {
     }
     else if(page == 'quote')
     {
-        window.location.href = "/quote";            
+        window.location.href = "/quote";
     }
     else if(page == 'analytics')
     {
-        window.location.href = "/analytics";            
+        window.location.href = "/analytics";
     }
     else if(page == 'holder')
         {
-            window.location.href = "/holder";            
+            window.location.href = "/holder";
         }
     else if(page == 'board')
         {
-            window.location.href = "/board";            
+            window.location.href = "/board";
         }
 }

@@ -3,23 +3,23 @@ body {
     margin: 0;
     padding: 20px;
   }
-  
+
   .chat-container {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 20px;
   }
-  
+
   .chatbot-response {
     font-weight: bold;
     margin-top: 10px;
   }
-  
+
   form {
     display: flex;
   }
-  
+
   input[type="text"] {
     flex: 1;
     padding: 10px;
@@ -27,7 +27,7 @@ body {
     border-radius: 5px;
     margin-right: 10px;
   }
-  
+
   button[type="submit"] {
     padding: 10px 20px;
     background-color: #4CAF50;

@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
 load_dotenv()
-import streamlit as st 
+import streamlit as st
 import os
-import google.generativeai as genai 
+import google.generativeai as genai
 from PIL import Image
 from fpdf import FPDF
 import time
@@ -12,13 +12,13 @@ class CreatePDF():
         self.pdf = FPDF()
         self.pdf.add_page()
         self.pdf.set_font(font, size = size)
-    
+
     def add_heading(self, text, align_center = True):
         if align_center:
             self.pdf.cell(200, 10, txt = text, ln = True,  align = 'C')
         else:
             self.pdf.cell(200, 10, txt = text, ln = True)
-    
+
     def add_text(self, text, align_center = False):
         if align_center:
             self.pdf.multi_cell(0, 10, text, align = 'C')
@@ -44,7 +44,7 @@ user_input=st.text_input("Description for quote details",key="user_input")
 uploaded_file = st.file_uploader("Upload quote sample ...", type=["jpg", "jpeg", "png"])
 
 
-image=""   
+image=""
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
